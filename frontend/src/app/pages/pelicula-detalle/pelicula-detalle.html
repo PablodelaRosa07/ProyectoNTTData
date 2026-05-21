@@ -1,0 +1,27 @@
+<a routerLink="/peliculas" class="back">Volver al listado</a>
+
+@if (error()) {
+  <p class="alert">{{ error() }}</p>
+}
+
+@if (pelicula(); as pelicula) {
+  <section class="detail">
+    <p class="eyebrow">{{ pelicula.categoriaNombre }}</p>
+    <h1>{{ pelicula.titulo }}</h1>
+    <dl>
+      <div>
+        <dt>Director</dt>
+        <dd>{{ pelicula.director }}</dd>
+      </div>
+      <div>
+        <dt>Anio</dt>
+        <dd>{{ pelicula.anio }}</dd>
+      </div>
+      <div>
+        <dt>Estado</dt>
+        <dd>{{ pelicula.disponible ? 'Disponible' : 'Prestada' }}</dd>
+      </div>
+    </dl>
+    <a [routerLink]="['/categorias', pelicula.categoriaId]">Ver categoria completa</a>
+  </section>
+}

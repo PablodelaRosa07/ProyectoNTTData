@@ -1,0 +1,55 @@
+<a routerLink="/peliculas" class="back">Volver al listado</a>
+
+<section class="form-panel">
+  <h1>Nueva pelicula</h1>
+
+  @if (error()) {
+    <p class="alert">{{ error() }}</p>
+  }
+
+  <form [formGroup]="formulario" (ngSubmit)="guardar()">
+    <label>
+      Titulo
+      <input type="text" formControlName="titulo" />
+      @if (campoNoValido('titulo')) {
+        <small>El titulo debe tener al menos 2 caracteres.</small>
+      }
+    </label>
+
+    <label>
+      Director
+      <input type="text" formControlName="director" />
+      @if (campoNoValido('director')) {
+        <small>El director debe tener al menos 2 caracteres.</small>
+      }
+    </label>
+
+    <label>
+      Anio
+      <input type="number" formControlName="anio" />
+      @if (campoNoValido('anio')) {
+        <small>Introduce un anio entre 1900 y 2100.</small>
+      }
+    </label>
+
+    <label>
+      Categoria
+      <select formControlName="categoriaId">
+        <option [ngValue]="0">Selecciona una categoria</option>
+        @for (categoria of categorias(); track categoria.id) {
+          <option [ngValue]="categoria.id">{{ categoria.nombre }}</option>
+        }
+      </select>
+      @if (campoNoValido('categoriaId')) {
+        <small>Selecciona una categoria.</small>
+      }
+    </label>
+
+    <label class="check">
+      <input type="checkbox" formControlName="disponible" />
+      Disponible para alquilar
+    </label>
+
+    <button type="submit">Guardar pelicula</button>
+  </form>
+</section>
