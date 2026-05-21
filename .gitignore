@@ -1,23 +1,76 @@
-### AL ###
-#Template for AL projects for Dynamics 365 Business Central
-#launch.json folder
-.vscode/
-#Cache folder
-.alcache/
-#Symbols folder
-.alpackages/
-#Snapshots folder
-.snapshots/
-#Testing Output folder
-.output/
-#Extension App-file
-*.app
-#Rapid Application Development File
-rad.json
-#Translation Base-file
-*.g.xlf
-#License-files
-*.bclicense
-*.flf
-#Test results file
-TestResults.xml
+# =========================================================
+# ROOT
+# =========================================================
+
+.DS_Store
+Thumbs.db
+
+# =========================================================
+# BACKEND - Spring Boot / Maven
+# =========================================================
+
+/backend/target/
+/backend/.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ
+/backend/.idea/
+/backend/*.iml
+
+# Eclipse / STS
+/backend/.project
+/backend/.classpath
+/backend/.settings/
+/backend/.factorypath
+/backend/.apt_generated/
+/backend/.springBeans
+/backend/.sts4-cache/
+
+# VS Code
+/backend/.vscode/
+
+# Logs
+/backend/*.log
+
+# H2 Database
+/backend/*.mv.db
+/backend/*.trace.db
+/backend/data/
+
+# =========================================================
+# FRONTEND - Angular
+# =========================================================
+
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.angular/
+/frontend/coverage/
+/frontend/tmp/
+/frontend/out-tsc/
+
+# Angular cache
+/frontend/.angular/cache/
+
+# Logs
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+
+# IDEs
+/frontend/.idea/
+/frontend/.vscode/
+/frontend/*.iml
+
+# Misc
+/frontend/.sass-cache/
+/frontend/.history/
+
+# =========================================================
+# OPTIONAL
+# =========================================================
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

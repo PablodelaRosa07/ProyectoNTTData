@@ -1,0 +1,27 @@
+<a routerLink="/directores" class="back">Volver a directores</a>
+
+@if (error()) {
+  <p class="alert">{{ error() }}</p>
+}
+
+@if (director(); as director) {
+  <section class="director">
+    <p class="eyebrow">Director</p>
+    <h1>{{ director.nombre }}</h1>
+  </section>
+
+  <section class="movies">
+    <h2>Peliculas de este director</h2>
+    @for (pelicula of director.peliculas; track pelicula.id) {
+      <article>
+        <div>
+          <h3>{{ pelicula.titulo }}</h3>
+          <p>{{ pelicula.categoriaNombre }} - {{ pelicula.anio }}</p>
+        </div>
+        <a [routerLink]="['/peliculas', pelicula.id]">Ver detalle</a>
+      </article>
+    } @empty {
+      <p>No hay peliculas de este director.</p>
+    }
+  </section>
+}

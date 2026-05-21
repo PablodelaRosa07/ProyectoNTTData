@@ -1,0 +1,55 @@
+<section class="hero">
+  <div>
+    <p class="eyebrow">Directores</p>
+    <h1>Directores del catalogo</h1>
+  </div>
+</section>
+
+@if (error()) {
+  <p class="alert">{{ error() }}</p>
+}
+
+@if (mensaje()) {
+  <p class="alert success">{{ mensaje() }}</p>
+}
+
+<section class="form-panel">
+  <h2>{{ editandoId() === null ? 'Anadir director' : 'Editar director' }}</h2>
+  <form [formGroup]="formulario" (ngSubmit)="guardar()">
+    <label>
+      Nombre
+      <input type="text" formControlName="nombre" placeholder="Ej. Steven Spielberg" />
+      @if (campoNoValido('nombre')) {
+        <small>El nombre debe tener al menos 2 caracteres.</small>
+      }
+    </label>
+    <button type="submit" [disabled]="guardando()">
+      {{ guardando() ? 'Guardando...' : editandoId() === null ? 'Guardar director' : 'Actualizar director' }}
+    </button>
+    @if (editandoId() !== null) {
+      <button type="button" class="secondary" (click)="cancelarEdicion()">Cancelar</button>
+    }
+  </form>
+</section>
+
+@if (cargando()) {
+  <p>Cargando directores...</p>
+} @else {
+  <section class="director-list">
+    @for (director of directores(); track director.id) {
+      <article>
+        <div>
+          <h2>{{ director.nombre }}</h2>
+          <p>{{ director.totalPeliculas }} peliculas registradas</p>
+        </div>
+        <div class="actions">
+          <a [routerLink]="['/directores', director.id]">Ver peliculas</a>
+          <button type="button" class="secondary-link" (click)="editar(director)">Editar</button>
+          <button type="button" class="danger-link" (click)="borrar(director)">Borrar</button>
+        </div>
+      </article>
+    } @empty {
+      <p class="empty">No hay directores registrados.</p>
+    }
+  </section>
+}

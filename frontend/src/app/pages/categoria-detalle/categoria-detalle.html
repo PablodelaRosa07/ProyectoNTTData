@@ -1,0 +1,31 @@
+<a routerLink="/peliculas" class="back">Volver al listado</a>
+
+@if (error()) {
+  <p class="alert">{{ error() }}</p>
+}
+
+@if (categoria(); as categoria) {
+  <section class="category">
+    <p class="eyebrow">Categoria</p>
+    <h1>{{ categoria.nombre }}</h1>
+    <p>{{ categoria.descripcion }}</p>
+  </section>
+
+  <section class="movies">
+    <h2>Peliculas de esta categoria</h2>
+    @for (pelicula of categoria.peliculas; track pelicula.id) {
+      <article>
+        <div>
+          <h3>{{ pelicula.titulo }}</h3>
+          <p>
+            <a [routerLink]="['/directores', pelicula.directorId]">{{ pelicula.directorNombre }}</a>
+            - {{ pelicula.anio }}
+          </p>
+        </div>
+        <a [routerLink]="['/peliculas', pelicula.id]">Ver detalle</a>
+      </article>
+    } @empty {
+      <p>No hay peliculas en esta categoria.</p>
+    }
+  </section>
+}
