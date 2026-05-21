@@ -60,3 +60,9 @@ Ejemplo:
 - Peliculas: Matrix, Regreso al futuro
 
 El backend carga datos iniciales al arrancar para poder probar el listado y los detalles desde el primer momento.
+
+## Problemas encontrados durante el desarrollo
+
+- El formulario reactivo de Angular daba un error porque se estaba usando `FormBuilder` antes de inicializarse. Se corrigio usando `inject(FormBuilder)` antes de crear el formulario.
+- El backend necesitaba validaciones para los datos recibidos por formulario. Se anadio la dependencia de validacion y se usaron anotaciones como `@NotBlank`, `@NotNull`, `@Min` y `@Max`.
+- Al probar los comandos en Windows, el wrapper de Maven dio problemas al ejecutarlo de algunas formas desde PowerShell. La forma que funciono fue usar `cmd /c mvnw.cmd test` o `cmd /c mvnw.cmd spring-boot:run`.
