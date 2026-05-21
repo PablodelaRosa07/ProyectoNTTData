@@ -6,6 +6,7 @@ import { CrearPelicula, Pelicula } from '../models/pelicula';
 export interface FiltrosPeliculas {
   titulo: string;
   categoriaId: number;
+  directorId: number;
 }
 
 @Injectable({
@@ -16,7 +17,7 @@ export class PeliculaService {
 
   constructor(private readonly http: HttpClient) {}
 
-  listar(filtros: FiltrosPeliculas = { titulo: '', categoriaId: 0 }): Observable<Pelicula[]> {
+  listar(filtros: FiltrosPeliculas = { titulo: '', categoriaId: 0, directorId: 0 }): Observable<Pelicula[]> {
     let params: Record<string, string> = {};
 
     if (filtros.titulo.trim()) {
@@ -25,6 +26,10 @@ export class PeliculaService {
 
     if (filtros.categoriaId > 0) {
       params = { ...params, categoriaId: String(filtros.categoriaId) };
+    }
+
+    if (filtros.directorId > 0) {
+      params = { ...params, directorId: String(filtros.directorId) };
     }
 
     return this.http.get<Pelicula[]>(this.apiUrl, { params });

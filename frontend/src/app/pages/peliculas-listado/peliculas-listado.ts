@@ -2,8 +2,10 @@ import { Component, OnInit, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Categoria } from '../../models/categoria';
+import { Director } from '../../models/director';
 import { Pelicula } from '../../models/pelicula';
 import { CategoriaService } from '../../services/categoria.service';
+import { DirectorService } from '../../services/director.service';
 import { PeliculaService } from '../../services/pelicula.service';
 
 @Component({
@@ -16,17 +18,20 @@ import { PeliculaService } from '../../services/pelicula.service';
 export class PeliculasListado implements OnInit {
   peliculas = signal<Pelicula[]>([]);
   categorias = signal<Categoria[]>([]);
+  directores = signal<Director[]>([]);
   cargando = signal(true);
   error = signal('');
   mensaje = signal('');
   tituloFiltro = signal('');
   categoriaFiltro = signal(0);
+  directorFiltro = signal(0);
 
   totalDisponibles = computed(() => this.peliculas().filter((pelicula) => pelicula.disponible).length);
 
   constructor(
     private readonly peliculaService: PeliculaService,
     private readonly categoriaService: CategoriaService,
+    private readonly directorService: DirectorService,
     private readonly route: ActivatedRoute
   ) {}
 
@@ -38,6 +43,11 @@ export class PeliculasListado implements OnInit {
       next: (categorias) => this.categorias.set(categorias),
       error: () => this.error.set('No se han podido cargar las categorias.')
     });
+
+    this.directorService.listar().subscribe({
+      next: (directores) => this.directores.set(directores),
+      error: () => this.error.set('No se han podido cargar los directores.')
+    });
   }
 
   buscar(): void {
@@ -47,6 +57,7 @@ export class PeliculasListado implements OnInit {
   limpiarFiltros(): void {
     this.tituloFiltro.set('');
     this.categoriaFiltro.set(0);
+    this.directorFiltro.set(0);
     this.cargarPeliculas();
   }
 
@@ -75,7 +86,8 @@ export class PeliculasListado implements OnInit {
 
     this.peliculaService.listar({
       titulo: this.tituloFiltro(),
-      categoriaId: this.categoriaFiltro()
+      categoriaId: this.categoriaFiltro(),
+      directorId: this.directorFiltro()
     }).subscribe({
       next: (peliculas) => {
         this.peliculas.set(peliculas);

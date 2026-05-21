@@ -15,7 +15,9 @@
     <dl>
       <div>
         <dt>Director</dt>
-        <dd>{{ pelicula.director }}</dd>
+        <dd>
+          <a [routerLink]="['/directores', pelicula.directorId]">{{ pelicula.directorNombre }}</a>
+        </dd>
       </div>
       <div>
         <dt>Anio</dt>

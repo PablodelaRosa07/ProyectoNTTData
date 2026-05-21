@@ -27,6 +27,10 @@
     <span>{{ categorias().length }}</span>
     <p>Categorias</p>
   </article>
+  <article>
+    <span>{{ directores().length }}</span>
+    <p>Directores</p>
+  </article>
 </section>
 
 <form class="filters" (ngSubmit)="buscar()">
@@ -53,6 +57,19 @@
     </select>
   </label>
 
+  <label>
+    Director
+    <select
+      name="director"
+      [ngModel]="directorFiltro()"
+      (ngModelChange)="directorFiltro.set(+$event)">
+      <option [ngValue]="0">Todos los directores</option>
+      @for (director of directores(); track director.id) {
+        <option [ngValue]="director.id">{{ director.nombre }}</option>
+      }
+    </select>
+  </label>
+
   <div class="filter-actions">
     <button type="submit">Buscar</button>
     <button type="button" class="secondary" (click)="limpiarFiltros()">Limpiar</button>
@@ -73,7 +90,10 @@
           <article class="movie-card">
             <div>
               <h3>{{ pelicula.titulo }}</h3>
-              <p>{{ pelicula.director }} - {{ pelicula.anio }}</p>
+              <p>
+                <a [routerLink]="['/directores', pelicula.directorId]">{{ pelicula.directorNombre }}</a>
+                - {{ pelicula.anio }}
+              </p>
               <a [routerLink]="['/categorias', pelicula.categoriaId]">{{ pelicula.categoriaNombre }}</a>
             </div>
             <div class="actions">
@@ -96,6 +116,14 @@
       <a class="category-link" [routerLink]="['/categorias', categoria.id]">
         <strong>{{ categoria.nombre }}</strong>
         <span>{{ categoria.totalPeliculas }} peliculas</span>
+      </a>
+    }
+
+    <h2 class="aside-title">Directores</h2>
+    @for (director of directores(); track director.id) {
+      <a class="category-link" [routerLink]="['/directores', director.id]">
+        <strong>{{ director.nombre }}</strong>
+        <span>{{ director.totalPeliculas }} peliculas</span>
       </a>
     }
   </aside>

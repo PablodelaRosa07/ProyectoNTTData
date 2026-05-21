@@ -2,6 +2,8 @@ export interface Pelicula {
   id: number;
   titulo: string;
   director: string;
+  directorId: number;
+  directorNombre: string;
   anio: number;
   disponible: boolean;
   categoriaId: number;
@@ -10,7 +12,7 @@ export interface Pelicula {
 
 export interface CrearPelicula {
   titulo: string;
-  director: string;
+  directorId: number;
   anio: number;
   disponible: boolean;
   categoriaId: number;

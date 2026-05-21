@@ -16,9 +16,12 @@ public class Pelicula {
     private Long id;
 
     private String titulo;
-    private String director;
     private Integer anio;
     private Boolean disponible;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "director_id")
+    private Director director;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")
@@ -27,7 +30,7 @@ public class Pelicula {
     public Pelicula() {
     }
 
-    public Pelicula(String titulo, String director, Integer anio, Boolean disponible, Categoria categoria) {
+    public Pelicula(String titulo, Director director, Integer anio, Boolean disponible, Categoria categoria) {
         this.titulo = titulo;
         this.director = director;
         this.anio = anio;
@@ -47,11 +50,11 @@ public class Pelicula {
         this.titulo = titulo;
     }
 
-    public String getDirector() {
+    public Director getDirector() {
         return director;
     }
 
-    public void setDirector(String director) {
+    public void setDirector(Director director) {
         this.director = director;
     }
 

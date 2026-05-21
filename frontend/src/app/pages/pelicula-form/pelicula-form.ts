@@ -2,7 +2,9 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Categoria } from '../../models/categoria';
+import { Director } from '../../models/director';
 import { CategoriaService } from '../../services/categoria.service';
+import { DirectorService } from '../../services/director.service';
 import { PeliculaService } from '../../services/pelicula.service';
 
 @Component({
@@ -16,6 +18,7 @@ export class PeliculaForm implements OnInit {
   private readonly fb = inject(FormBuilder);
 
   categorias = signal<Categoria[]>([]);
+  directores = signal<Director[]>([]);
   enviado = signal(false);
   error = signal('');
   cargando = signal(false);
@@ -24,7 +27,7 @@ export class PeliculaForm implements OnInit {
 
   formulario = this.fb.nonNullable.group({
     titulo: ['', [Validators.required, Validators.minLength(2)]],
-    director: ['', [Validators.required, Validators.minLength(2)]],
+    directorId: [0, [Validators.required, Validators.min(1)]],
     anio: [2000, [Validators.required, Validators.min(1900), Validators.max(2100)]],
     disponible: [true, Validators.required],
     categoriaId: [0, [Validators.required, Validators.min(1)]]
@@ -32,6 +35,7 @@ export class PeliculaForm implements OnInit {
 
   constructor(
     private readonly categoriaService: CategoriaService,
+    private readonly directorService: DirectorService,
     private readonly peliculaService: PeliculaService,
     private readonly route: ActivatedRoute,
     private readonly router: Router
@@ -49,6 +53,11 @@ export class PeliculaForm implements OnInit {
     this.categoriaService.listar().subscribe({
       next: (categorias) => this.categorias.set(categorias),
       error: () => this.error.set('No se han podido cargar las categorias.')
+    });
+
+    this.directorService.listar().subscribe({
+      next: (directores) => this.directores.set(directores),
+      error: () => this.error.set('No se han podido cargar los directores.')
     });
   }
 
@@ -94,7 +103,7 @@ export class PeliculaForm implements OnInit {
       next: (pelicula) => {
         this.formulario.setValue({
           titulo: pelicula.titulo,
-          director: pelicula.director,
+          directorId: pelicula.directorId,
           anio: pelicula.anio,
           disponible: pelicula.disponible,
           categoriaId: pelicula.categoriaId

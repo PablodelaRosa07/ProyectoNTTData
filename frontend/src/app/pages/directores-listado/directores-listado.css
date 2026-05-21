@@ -1,0 +1,163 @@
+.hero,
+.director-list {
+  display: grid;
+  gap: 16px;
+}
+
+.hero {
+  margin-bottom: 22px;
+}
+
+.eyebrow {
+  color: #2f80ed;
+  font-weight: 700;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+.form-panel {
+  background: white;
+  border: 1px solid #d8e0ea;
+  border-radius: 8px;
+  margin-bottom: 22px;
+  padding: 18px;
+}
+
+.form-panel form {
+  align-items: end;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr auto auto;
+  margin-top: 12px;
+}
+
+.form-panel label {
+  display: grid;
+  font-weight: 700;
+  gap: 7px;
+}
+
+.form-panel input {
+  border: 1px solid #b8c4d2;
+  border-radius: 6px;
+  font: inherit;
+  padding: 10px;
+}
+
+.form-panel button,
+.secondary-link,
+.danger-link {
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.form-panel button {
+  background: #2f80ed;
+  border: 0;
+  color: white;
+  font-weight: 700;
+  padding: 11px 14px;
+}
+
+.form-panel .secondary {
+  background: white;
+  border: 1px solid #b8c4d2;
+  color: #17202a;
+}
+
+.form-panel button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+small {
+  color: #b42318;
+  font-weight: 400;
+}
+
+.director-list article,
+.empty {
+  background: white;
+  border: 1px solid #d8e0ea;
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.director-list article {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.director-list a,
+.secondary-link,
+.danger-link {
+  background: transparent;
+  border: 0;
+  color: #1d67c1;
+  font-weight: 700;
+  padding: 0;
+  text-decoration: none;
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.secondary-link {
+  text-decoration: underline;
+}
+
+.danger-link {
+  color: #b42318;
+  text-decoration: underline;
+}
+
+.alert {
+  background: #fff1d6;
+  border: 1px solid #f1c46b;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  padding: 12px;
+}
+
+.alert.success {
+  background: #e7f7ed;
+  border-color: #7bc796;
+  color: #1e6b39;
+}
+
+@media (max-width: 650px) {
+  .form-panel form,
+  .director-list article {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .form-panel form {
+    grid-template-columns: 1fr;
+  }
+
+  .director-list article {
+    flex-direction: column;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
+}

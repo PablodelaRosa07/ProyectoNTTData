@@ -17,7 +17,10 @@
       <article>
         <div>
           <h3>{{ pelicula.titulo }}</h3>
-          <p>{{ pelicula.director }} - {{ pelicula.anio }}</p>
+          <p>
+            <a [routerLink]="['/directores', pelicula.directorId]">{{ pelicula.directorNombre }}</a>
+            - {{ pelicula.anio }}
+          </p>
         </div>
         <a [routerLink]="['/peliculas', pelicula.id]">Ver detalle</a>
       </article>

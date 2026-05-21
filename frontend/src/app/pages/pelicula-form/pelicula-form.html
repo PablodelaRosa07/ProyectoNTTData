@@ -18,9 +18,14 @@
 
     <label>
       Director
-      <input type="text" formControlName="director" />
-      @if (campoNoValido('director')) {
-        <small>El director debe tener al menos 2 caracteres.</small>
+      <select formControlName="directorId">
+        <option [ngValue]="0">Selecciona un director</option>
+        @for (director of directores(); track director.id) {
+          <option [ngValue]="director.id">{{ director.nombre }}</option>
+        }
+      </select>
+      @if (campoNoValido('directorId')) {
+        <small>Selecciona un director.</small>
       }
     </label>
 
