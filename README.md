@@ -1,4 +1,4 @@
-# Videoclub DAW
+# Videoclub AIWarlocks
 
 Aplicacion web full stack sencilla con Angular 21, Spring Boot y base de datos H2 en memoria.
 
