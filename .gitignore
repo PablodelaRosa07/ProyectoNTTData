@@ -1,75 +1,76 @@
-HELP.md
-target/
-.backend/.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# =========================================================
+# ROOT
+# =========================================================
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/
-
-/dist
-/tmp
-/out-tsc
-/bazel-out
-
-# Node
-/frontend/node_modules
-npm-debug.log
-yarn-error.log
-
-# IDEs and editors
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# Visual Studio Code
-frontend/.vscode/*
-frontend/.vscode/settings.json
-frontend/.vscode/tasks.json
-frontend/.vscode/launch.json
-frontend/.vscode/extensions.json
-frontend/.vscode/mcp.json
-.history/*
-
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-__screenshots__/
-
-# System files
 .DS_Store
 Thumbs.db
+
+# =========================================================
+# BACKEND - Spring Boot / Maven
+# =========================================================
+
+/backend/target/
+/backend/.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ
+/backend/.idea/
+/backend/*.iml
+
+# Eclipse / STS
+/backend/.project
+/backend/.classpath
+/backend/.settings/
+/backend/.factorypath
+/backend/.apt_generated/
+/backend/.springBeans
+/backend/.sts4-cache/
+
+# VS Code
+/backend/.vscode/
+
+# Logs
+/backend/*.log
+
+# H2 Database
+/backend/*.mv.db
+/backend/*.trace.db
+/backend/data/
+
+# =========================================================
+# FRONTEND - Angular
+# =========================================================
+
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.angular/
+/frontend/coverage/
+/frontend/tmp/
+/frontend/out-tsc/
+
+# Angular cache
+/frontend/.angular/cache/
+
+# Logs
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+
+# IDEs
+/frontend/.idea/
+/frontend/.vscode/
+/frontend/*.iml
+
+# Misc
+/frontend/.sass-cache/
+/frontend/.history/
+
+# =========================================================
+# OPTIONAL
+# =========================================================
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
