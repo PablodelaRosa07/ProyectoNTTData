@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -33,8 +36,23 @@ public class PeliculaController {
     }
 
     @GetMapping
-    public List<PeliculaDto> listar() {
-        return peliculaRepository.findAll().stream()
+    public List<PeliculaDto> listar(
+            @RequestParam(defaultValue = "") String titulo,
+            @RequestParam(required = false) Long categoriaId) {
+
+        List<Pelicula> peliculas;
+
+        if (!titulo.isBlank() && categoriaId != null) {
+            peliculas = peliculaRepository.findByTituloContainingIgnoreCaseAndCategoriaId(titulo, categoriaId);
+        } else if (!titulo.isBlank()) {
+            peliculas = peliculaRepository.findByTituloContainingIgnoreCase(titulo);
+        } else if (categoriaId != null) {
+            peliculas = peliculaRepository.findByCategoriaId(categoriaId);
+        } else {
+            peliculas = peliculaRepository.findAll();
+        }
+
+        return peliculas.stream()
                 .map(this::toDto)
                 .toList();
     }
@@ -60,6 +78,32 @@ public class PeliculaController {
                 categoria);
 
         return toDto(peliculaRepository.save(pelicula));
+    }
+
+    @PutMapping("/{id}")
+    public PeliculaDto actualizar(@PathVariable Long id, @Valid @RequestBody CrearPeliculaRequest request) {
+        Pelicula pelicula = peliculaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pelicula no encontrada"));
+        Categoria categoria = categoriaRepository.findById(request.categoriaId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Categoria no valida"));
+
+        pelicula.setTitulo(request.titulo());
+        pelicula.setDirector(request.director());
+        pelicula.setAnio(request.anio());
+        pelicula.setDisponible(request.disponible());
+        pelicula.setCategoria(categoria);
+
+        return toDto(peliculaRepository.save(pelicula));
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void borrar(@PathVariable Long id) {
+        if (!peliculaRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pelicula no encontrada");
+        }
+
+        peliculaRepository.deleteById(id);
     }
 
     private PeliculaDto toDto(Pelicula pelicula) {

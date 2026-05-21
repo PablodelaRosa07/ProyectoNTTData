@@ -61,6 +61,11 @@ button {
   padding: 12px 16px;
 }
 
+button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
 .alert {
   background: #fff1d6;
   border: 1px solid #f1c46b;

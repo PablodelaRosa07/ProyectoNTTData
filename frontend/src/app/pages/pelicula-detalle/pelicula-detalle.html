@@ -4,6 +4,10 @@
   <p class="alert">{{ error() }}</p>
 }
 
+@if (mensaje()) {
+  <p class="alert success">{{ mensaje() }}</p>
+}
+
 @if (pelicula(); as pelicula) {
   <section class="detail">
     <p class="eyebrow">{{ pelicula.categoriaNombre }}</p>
@@ -22,6 +26,10 @@
         <dd>{{ pelicula.disponible ? 'Disponible' : 'Prestada' }}</dd>
       </div>
     </dl>
-    <a [routerLink]="['/categorias', pelicula.categoriaId]">Ver categoria completa</a>
+    <div class="detail-actions">
+      <a [routerLink]="['/categorias', pelicula.categoriaId]">Ver categoria completa</a>
+      <a class="button" [routerLink]="['/peliculas', pelicula.id, 'editar']">Editar</a>
+      <button type="button" class="danger" (click)="borrar()">Borrar</button>
+    </div>
   </section>
 }

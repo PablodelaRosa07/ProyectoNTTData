@@ -8,6 +8,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'peliculas', pathMatch: 'full' },
   { path: 'peliculas', component: PeliculasListado },
   { path: 'peliculas/nueva', component: PeliculaForm },
+  { path: 'peliculas/:id/editar', component: PeliculaForm },
   { path: 'peliculas/:id', component: PeliculaDetalle },
   { path: 'categorias/:id', component: CategoriaDetalle },
   { path: '**', redirectTo: 'peliculas' }

@@ -10,6 +10,10 @@
   <p class="alert">{{ error() }}</p>
 }
 
+@if (mensaje()) {
+  <p class="alert success">{{ mensaje() }}</p>
+}
+
 <section class="summary">
   <article>
     <span>{{ peliculas().length }}</span>
@@ -25,12 +29,44 @@
   </article>
 </section>
 
+<form class="filters" (ngSubmit)="buscar()">
+  <label>
+    Buscar por titulo
+    <input
+      type="search"
+      name="titulo"
+      [ngModel]="tituloFiltro()"
+      (ngModelChange)="tituloFiltro.set($event)"
+      placeholder="Ej. Matrix" />
+  </label>
+
+  <label>
+    Categoria
+    <select
+      name="categoria"
+      [ngModel]="categoriaFiltro()"
+      (ngModelChange)="categoriaFiltro.set(+$event)">
+      <option [ngValue]="0">Todas las categorias</option>
+      @for (categoria of categorias(); track categoria.id) {
+        <option [ngValue]="categoria.id">{{ categoria.nombre }}</option>
+      }
+    </select>
+  </label>
+
+  <div class="filter-actions">
+    <button type="submit">Buscar</button>
+    <button type="button" class="secondary" (click)="limpiarFiltros()">Limpiar</button>
+  </div>
+</form>
+
 <section class="content-grid">
   <div>
     <h2>Listado</h2>
 
     @if (cargando()) {
       <p>Cargando peliculas...</p>
+    } @else if (peliculas().length === 0) {
+      <p class="empty">No hay peliculas que coincidan con la busqueda.</p>
     } @else {
       <div class="movie-list">
         @for (pelicula of peliculas(); track pelicula.id) {
@@ -45,6 +81,8 @@
                 {{ pelicula.disponible ? 'Disponible' : 'Prestada' }}
               </span>
               <a [routerLink]="['/peliculas', pelicula.id]">Ver detalle</a>
+              <a [routerLink]="['/peliculas', pelicula.id, 'editar']">Editar</a>
+              <button type="button" class="danger-link" (click)="borrar(pelicula)">Borrar</button>
             </div>
           </article>
         }

@@ -1,7 +1,7 @@
 <a routerLink="/peliculas" class="back">Volver al listado</a>
 
 <section class="form-panel">
-  <h1>Nueva pelicula</h1>
+  <h1>{{ editando() ? 'Editar pelicula' : 'Nueva pelicula' }}</h1>
 
   @if (error()) {
     <p class="alert">{{ error() }}</p>
@@ -50,6 +50,8 @@
       Disponible para alquilar
     </label>
 
-    <button type="submit">Guardar pelicula</button>
+    <button type="submit" [disabled]="cargando()">
+      {{ cargando() ? 'Guardando...' : 'Guardar pelicula' }}
+    </button>
   </form>
 </section>

@@ -26,6 +26,7 @@ h1 {
 dl {
   display: grid;
   gap: 12px;
+  margin-bottom: 20px;
 }
 
 dt {
@@ -44,4 +45,37 @@ dd {
   border-radius: 8px;
   margin-top: 18px;
   padding: 12px;
+}
+
+.alert.success {
+  background: #e7f7ed;
+  border-color: #7bc796;
+  color: #1e6b39;
+}
+
+.detail-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.button,
+.danger {
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 700;
+  padding: 10px 14px;
+}
+
+.detail .button {
+  background: #2f80ed;
+  color: white;
+}
+
+.danger {
+  background: #b42318;
+  border: 0;
+  color: white;
+  cursor: pointer;
 }
