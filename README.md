@@ -14,31 +14,6 @@ cd backend
 ./mvnw spring-boot:run
 ```
 
-En Windows tambien puedes usar:
-
-```bash
-cd backend
-mvnw.cmd spring-boot:run
-```
-
-La API queda en `http://localhost:8080`.
-
-Endpoints principales:
-
-- `GET /api/peliculas`
-- `GET /api/peliculas/{id}`
-- `POST /api/peliculas`
-- `GET /api/categorias`
-- `GET /api/categorias/{id}`
-- `GET /api/categorias/{id}/peliculas`
-- `POST /api/categorias`
-
-Consola H2:
-
-- URL: `http://localhost:8080/h2-console`
-- JDBC URL: `jdbc:h2:mem:videoclub`
-- Usuario: `sa`
-- Password: vacio
 
 ## Arrancar el frontend
 
@@ -47,6 +22,16 @@ cd frontend
 npm install
 npm start
 ```
+
+
+La API queda en `http://localhost:8080`.
+
+Consola H2:
+
+- URL: `http://localhost:8080/h2-console`
+- JDBC URL: `jdbc:h2:mem:videoclub`
+- Usuario: `sa`
+- Password: vacio
 
 La aplicacion queda en `http://localhost:4200`.
 
@@ -60,9 +45,3 @@ Ejemplo:
 - Peliculas: Matrix, Regreso al futuro
 
 El backend carga datos iniciales al arrancar para poder probar el listado y los detalles desde el primer momento.
-
-## Problemas encontrados durante el desarrollo
-
-- El formulario reactivo de Angular daba un error porque se estaba usando `FormBuilder` antes de inicializarse. Se corrigio usando `inject(FormBuilder)` antes de crear el formulario.
-- El backend necesitaba validaciones para los datos recibidos por formulario. Se anadio la dependencia de validacion y se usaron anotaciones como `@NotBlank`, `@NotNull`, `@Min` y `@Max`.
-- Al probar los comandos en Windows, el wrapper de Maven dio problemas al ejecutarlo de algunas formas desde PowerShell. La forma que funciono fue usar `cmd /c mvnw.cmd test` o `cmd /c mvnw.cmd spring-boot:run`.
